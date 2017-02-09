@@ -1,4 +1,4 @@
-# Async8
+﻿# Async8
 >Multi Async Library for web application. Easy to use and to have fun with.
 
 # Version
