@@ -1,0 +1,17 @@
+{
+  "name": "async8",
+  "version": "0.0.0",
+  "description": "Massive Async Library for modern application",
+  "main": "index.js",
+  "license": "Use + Distribute on ANY type of projects/products",
+  "author": {
+    "name": "Manh Le",
+    "email": "quang.manh@gmail.com",
+    "url": "http://8thdensity.com"
+  },
+  "keywords": [
+    "Async Library",
+    "Async Engine",
+    "Async8"
+  ]
+}
