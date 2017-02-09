@@ -1,8 +1,7 @@
 ﻿# Async8
 >Multi Async Library for web application. Easy to use and to have fun with.
 
-# Version
-Latest: [Async8.v2.js](http://8thdensity.com/Resources/JS/Async8.v2.js)
+# Version 0.0.0
 
 # Table Of Content
 1. [Sequential Async](#sequential-asynchronization---async8queue)
