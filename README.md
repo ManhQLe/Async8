@@ -1,4 +1,4 @@
-﻿# Async8
+# Async8
 >Multi Async Library for web application. Easy to use and to have fun with.
 
 # Version
@@ -8,7 +8,6 @@ Latest: [Async8.v2.js](http://8thdensity.com/Resources/JS/Async8.v2.js)
 1. [Sequential Async](#sequential-asynchronization---async8queue)
 2. [Parallel Async](#parallel-asynchronization---async8pqueue)
 3. [Complex Async](#complex-asynchronization---async8ma)
-4. [Next Update](#next-updates)
 
 # Documentations
 ## Presentation
@@ -201,45 +200,7 @@ X---> Y ---> Z ---.
 ```javascript
 //A is a root node
 //Each array is a link from a node/function to a node/function
-MyDiagram = [
-      [A,B],
-      [A,C],
-      
-      [B,D],
-      
-      [C,E],
-      [C,F],
-      
-      [D,G],
-      [E,G],
-      [F,G]
-];
-// With Async8.v2.js we can do this
-MyDiagram = [
-      [A,B,D,G],
-      [A,C,E,G],
-      [C,F,G]
-]
 
-Async8.MA(MyDiagram).Fire() //No parameter and auto detect root node.
-
-MyDiagram2 = [
-      [X,Y],
-      
-      [Y,Z],
-      [Y,W],
-      
-      [Z,X],
-      [W,Z]
-]
-// With Async8.v2.js we can do this
-MyDiagram2 = [
-      [X,Y,Z,X],
-      [Y,W,X]
-]
-
-
-Async8.MA(MyDiagram).Fire(null,["Y"]) //No parameter and specify Y as root node/starting point
 ```
 #### Example:
 >Create an async digram that computes [(x+5)*(x/2)+3]/13 then write the result to console.
@@ -251,95 +212,6 @@ Async8.MA(MyDiagram).Fire(null,["Y"]) //No parameter and specify Y as root node/
                   ↓
       Div2-----> MultAdd3 ---> Div13 --> WriteConsole
 ```
-```javascript
-      function Add5(Done,input)
-      {
-            var me = this;
-            console.log("Doing add 5...");
-            setTimeout(function(){
-                  Done(input+5);
-            },3000);
-      }
-
-      function Div2(Done,input)
-      {
-            var me = this;
-            console.log("Doing division 2...");
-            setTimeout(function(){
-                  Done(input/2);
-            },3000);
-      }
-
-      function MultAdd3(Done,input)
-      {
-            var me = this;
-            console.log("Doing the magic of adding 3...");
-            setTimeout(function(){
-                  Done(input["Add5"]*input["Div2"] + 3)
-            },3000);
-      }
-
-      function Div13(Done,input)
-      {
-            var me = this;
-            console.log("Doing Division by 3...");
-            setTimeout(function(){
-                  Done(input["MultAdd3"]/13);
-            },3000);
-      }
-      
-      function WriteConsole(input){
-            console.log(input);
-      }
-
-      Async8.MA([
-            [Add5,MultAdd3],
-            [Div2,MultAdd3],
-            
-            [MultAdd3,Div13],
-            [Div13,WriteConsole]
-      ]).Fire(17);
-      
-```
->The example above can also be rewritten as
-
-```javascript
-      function Div(Done,input) {
-            console.log("Diving the result by " + this.Props.Divisor);
-            setTimeout(function (me) {
-                  Done((me.Props.InputName ? input[me.Props.InputName] : input) / me.Props.Divisor);
-            }, 3000, this);
-      }
-      
-      function MultAdd3(Done,input)
-      {
-            var me = this;
-            console.log("Doing the magic of adding 3...");
-            setTimeout(function(){
-                  Done(input["Add5"]*input["Div2"] + 3)
-            },3000);
-      }
-      
-      function Add5(Done,input)
-      {
-            var me = this;
-            console.log("Doing add 5...");
-            setTimeout(function(){
-                  Done(input+5);
-            },3000);
-      }
-      
-      Async8.MA([
-            [Add5,MultAdd3],
-            [N0(Div,"Div2",{"Divisor":2} ),MultAdd3],
-            
-            [MultAdd3,N0(Div,"Div13",{"InputName":"MultAdd3","Divisor":13})],
-            ["Div13",WriteConsole]
-      ]).Fire(17);      
-```
-### Next Updates
-[ x ] Simplify Diagram typing/specification
-
 # Author
 Manh Le
 # Contribution
