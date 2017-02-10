@@ -196,4 +196,3 @@ Async8._.MA.DESC = function (name, fx, props, async) {
 }
 
 Async8.DESC = Async8._.MA.DESC;
-
