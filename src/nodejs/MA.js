@@ -17,7 +17,6 @@ function N0(name, fx, props, async) {
 N0.prototype.Fire = function (Done, p) {
     this.Async ? setImmediate(this.fx, this, Done, p, this.Board) : this.fx(Done, p, this.Board);
 }
-XX = 0;
 
 function MA(Routes) {
     this.Nodes = [];

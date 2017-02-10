@@ -14,6 +14,7 @@
 # Documentations
 ## Presentation
 Link is [here](http://www.8thdensity.com/Demo/Presentation/Async8.html)
+
 ## References
 ```html
 <script src='Async8.js'></script>
@@ -211,22 +212,22 @@ X---> Y ---> Z ---.
 
  In the examples above, A,B,D,C,E,F,G,XY,Z,W I call them chips/modules. 
  Each chips will have core logic, uniquename locally to the circuit, properties, inputs, and single output.
- Output of circuit can fan out to different chips inputs.
+ Output of a chip can fan out to different chips inputs in a localboard.
 
  
  Diagram 1 has one root node (A) and one leaf node(A)
  Diagram 2, I call it circular circuit. 
  This type of circuit requires a Names parameter to be put to Fire function in order for it to have a start point. 
  Kind of like boostrap
-
  A circuit can have many leaves and roots.
 
- 
+		
      .------+----------+-------.
  A---+      |          |       |
      | NAME | LOGIC FX + PROPS +--->Output
  B---+      |          |       |
       `-----+----------'-------'
+	      Figure: Chip/Module
       
 	Below is an example of how to describe a chip.
 ```

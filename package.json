@@ -1,8 +1,8 @@
 {
   "name": "async8",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "Massive Async Library for modern application",
-  "main": "index.js",
+  "main": "build/index.js",
   "license": "Use + Distribute on ANY type of projects/products",
   "author": {
     "name": "Manh Le",
