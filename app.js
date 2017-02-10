@@ -1,4 +1,4 @@
-﻿var Async8 = require("./Async8");
+﻿var Async8 = require("./index.js");
 function A(Done,input) {
     console.log("Beginning A");
     console.log(input);

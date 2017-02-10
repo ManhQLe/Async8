@@ -9,6 +9,10 @@
     "email": "quang.manh@gmail.com",
     "url": "http://8thdensity.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ManhQLe/Async8"
+  },
   "keywords": [
     "Async Library",
     "Async Engine",
