@@ -344,7 +344,9 @@ Async8.MA(Circuit).Fire({
 
 # Author
 Manh Le
+
 # Contribution
 is Welcome
+
 # License
 It is free. Free to use on any project, type of project. Have fun : ).
