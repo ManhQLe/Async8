@@ -125,7 +125,7 @@ Async8._.MA.prototype.ExecNode = function (n, p, Pre) {
             if (PreE > 0) {
                 ++E.Collected;
                 PreE--;
-                E.Params[End.Local] = nparam;
+                End.Local ? E.Params[End.Local] = nparam : E.Params = nparam;
             }
             me.ExecNode(E, E.Params, PreE);
         });

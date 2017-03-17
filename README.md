@@ -1,7 +1,7 @@
 ﻿# Async8
 >Multi Async Library for web application. I personally think it is fun and useful.
 
-# Version 0.0.4
+# Version 0.0.5
 
 # Installation
 >npm install async8 --save
