@@ -115,10 +115,9 @@ MA.prototype.Fire = function (Params, Names, Endfx, Global) {
     var me = this;
 
     this.Nodes.forEach(function (n) {
-        if ((Names && Names.indexOf(n.Name) >= 0) || n.InputCount == 0) {            
+        if ((Names && Names.indexOf(n.Name) >= 0) || n.InputCount == 0) {
             var p = Params.hasOwnProperty(n.Name) ? Params[n.Name] : {}
-            for (var x in p)
-                n.Params[x] = p[x];
+            n.Params = p;
             me.ExecNode(n, n.Params, n.InputCount)
         }
     })
