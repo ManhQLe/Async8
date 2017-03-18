@@ -151,9 +151,8 @@ Async8._.MA.prototype.Fire = function (Params, Names, Endfx, Global) {
 
     this.Nodes.forEach(function (n) {
         if ((Names && Names.indexOf(n.Name) >= 0) || n.InputCount == 0) {
-            var p = Params.hasOwnProperty(n.Name) ? Params[n.Name] : {}
-            for (var x in p)
-                n.Params[x] = p[x];
+            var p = Params.hasOwnProperty(n.Name) ? Params[n.Name] : {}            
+            n.Params[x] = p;
             me.ExecNode(n, n.Params, n.InputCount)
         }
     })
