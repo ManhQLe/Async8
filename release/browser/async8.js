@@ -1,24 +1,34 @@
 ﻿var Async8 = {
     Queue: function (Actions, param, endfx, noblock) {
         var i = 0;
-        function Start(x) {
-            i < Actions.length ? Actions[i++](Start, x) : (endfx ? endfx(x) : 1);
+        endfx ? 1 : endfx = function () { };
+
+        function Start(x, err) {
+            err ? endfx(err) :
+                i < Actions.length ? Actions[i++](Start, x, err) : endfx(x);
         }
         (noblock) ?
-            setImmediate(Start, param) : Start(param);
+            setTimeout(Start, 0, param) : Start(param);
     },
     PQueue: function (Actions, param, endfx) {
+        endfx ? 1 : endfx = function () { };
         var RetData = []
         var I = 0;
-        function DoneCall(i, ret) {
+        var Ended = false;
+        function DoneCall(i, ret, err) {
             RetData[i] = ret;
-            ++I == RetData.length ? endfx ? endfx(RetData) : 1 : 0;
+            if (err && !Ended) {
+                Ended = true;
+                endfx(RetData, err, i);
+            }
+            else
+                ++I == RetData.length ? endfx(RetData) : 1;
         }
 
         Actions.forEach(function (fx, i) {
             RetData.push(null);
-            setImmediate(fx, function (retdata) {
-                DoneCall(i, retdata)
+            setTimeout(fx, 0, function (retdata, err) {
+                DoneCall(i, retdata, err);
             }, param, i);
         })
     },
@@ -116,8 +126,17 @@ Async8._.MA.prototype.GetNode = function (unknown) {
 Async8._.MA.prototype.ExecNode = function (n, p, Pre) {
     //Pre: Advance input to allow node to be fired
     var me = this;
-    function Done(nparam, Names) {
-        var Flows = Async8._.MA.FX.GetFlows(Names);
+    if (me.Error)
+        return;
+
+    function Done(nparam, err, Names) {
+        if (err) {
+            me.Error = err;
+            me.Endfx(null, err);
+            return;
+        }
+
+        var Flows = MA.FX.GetFlows(Names);
         var PreE, E;
         n.Link2.forEach(function (End) {
             E = End.Node;
@@ -132,14 +151,13 @@ Async8._.MA.prototype.ExecNode = function (n, p, Pre) {
         n.Link2.length ? 1 :
             (
                 me.LastParams[n.Name] = nparam,
-                ++me.Leafed == me.Leaves ? (me.Leafed = 0, me.Endfx ? me.Endfx(me.LastParams) : 0) : 1
+                ++me.Leafed == me.Leaves ? (me.Leafed = 0, me.Endfx(me.LastParams)) : 1
             )
     }
 
     if ((Pre ? Pre : 0) + n.Collected >= n.InputCount) {
         n.Collected = 0;
         n.Fire(Done, p);
-        //n.Async ? setImmediate(n.fx.call, n, Done, p, this) : n.fx(Done, p, this);
     }
 }
 

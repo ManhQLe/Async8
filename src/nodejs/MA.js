@@ -81,7 +81,17 @@ MA.prototype.GetNode = function (unknown) {
 MA.prototype.ExecNode = function (n, p, Pre) {
     //Pre: Advance input to allow node to be fired
     var me = this;
-    function Done(nparam, Names) {
+    if (me.Error)
+        return;
+
+    function Done(nparam, err, Names) {
+        if (err)
+        {
+            me.Error = err;
+            me.Endfx(null, err);
+            return;
+        }
+
         var Flows = MA.FX.GetFlows(Names);
         var PreE, E;
         n.Link2.forEach(function (End) {
@@ -97,21 +107,20 @@ MA.prototype.ExecNode = function (n, p, Pre) {
         n.Link2.length ? 1 :
             (
                 me.LastParams[n.Name] = nparam,
-                ++me.Leafed == me.Leaves ? (me.Leafed = 0, me.Endfx ? me.Endfx(me.LastParams) : 0) : 1
+                ++me.Leafed == me.Leaves ? (me.Leafed = 0, me.Endfx(me.LastParams)) : 1
             )
     }
 
     if ((Pre ? Pre : 0) + n.Collected >= n.InputCount) {
         n.Collected = 0;
         n.Fire(Done, p);
-        //n.Async ? setImmediate(n.fx.call, n, Done, p, this) : n.fx(Done, p, this);
     }
 }
 
 MA.prototype.Fire = function (Params, Names, Endfx, Global) {
     this.Global = Global;
     this.LastParams = {};
-    Endfx ? this.Endfx = Endfx : 1;
+    this.Endfx = Endfx || function () { };
     var me = this;
 
     this.Nodes.forEach(function (n) {
