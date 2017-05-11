@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="Test2.js" />
     <Compile Include="release\browser\async8.js" />
     <Compile Include="release\browser\async8.min.js" />
     <Compile Include="release\nodejs\index.js" />
