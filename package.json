@@ -1,6 +1,6 @@
 {
   "name": "async8",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Massive Async Library for modern application",
   "main": "src/nodejs/index.js",
   "license": "Use + Distribute on ANY type of projects/products",

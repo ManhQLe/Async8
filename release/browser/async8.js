@@ -4,8 +4,8 @@
         endfx ? 1 : endfx = function () { };
 
         function Start(x, err) {
-            err ? endfx(err) :
-                i < Actions.length ? Actions[i++](Start, x, gparams) : endfx(x, gparams);
+            err ? endfx(null, err) :
+                i < Actions.length ? Actions[i++](Start, x, gparams) : endfx(x, null, gparams);
         }
         (noblock) ?
             setTimeout(Start, 0, param) : Start(param);
@@ -22,15 +22,15 @@
                 endfx(RetData, err, i, gparams);
             }
             else
-                ++I == RetData.length ? endfx(RetData, gparams) : 1;
+                ++I == RetData.length ? endfx(RetData, null, -1, gparams) : 1;
         }
 
-        Actions.forEach(function (fx, i) {
+        Actions.length ? Actions.forEach(function (fx, i) {
             RetData.push(null);
             setTimeout(fx, 0, function (retdata, err) {
                 DoneCall(i, retdata, err);
             }, param, i, gparams);
-        })
+        }) : endfx(RetData, gparams);
     },
     DPQueue: function (Data, threadfx, endfx, gparams, NOT) {
         NOT = NOT ? NOT : Data.length;
