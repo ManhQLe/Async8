@@ -84,8 +84,8 @@
     }
 }
 
-Async8.N0.prototype.Fire = function (Done, p) {
-    this.Async ? setImmediate(this.fx, this, Done, p, this.Board) : this.fx(Done, p, this.Board);
+Async8.N0.prototype.Fire = function (Done, p) {    
+    this.Async ? setTimeout(this.fx.call, 0, this, Done, p, this.Board.Global, this.Board) : this.fx(Done, p, this.Board.Global, this.Board);
 }
 
 
@@ -136,7 +136,7 @@ Async8._.MA.prototype.ExecNode = function (n, p, Pre) {
             return;
         }
 
-        var Flows = MA.FX.GetFlows(Names);
+        var Flows = Async8._.MA.FX.GetFlows(Names);
         var PreE, E;
         n.Link2.forEach(function (End) {
             E = End.Node;
