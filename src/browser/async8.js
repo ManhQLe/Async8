@@ -85,7 +85,7 @@
 }
 
 Async8.N0.prototype.Fire = function (Done, p) {    
-    this.Async ? setTimeout(this.fx.call, 0, this, Done, p, this.Board.Global, this.Board) : this.fx(Done, p, this.Board.Global, this.Board);
+    this.Async ? this.fx(this, Done, p, this.Board.Global, this.Board) : this.fx(Done, p, this.Board.Global, this.Board);
 }
 
 
